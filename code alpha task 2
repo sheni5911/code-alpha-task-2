@@ -1,0 +1,46 @@
+class Stock:
+    def __init__(self, name, shares, price):
+        self.name = name.upper()
+        self.shares = shares
+        self.price = price
+
+    def investment(self):
+        return self.shares * self.price
+
+def display_portfolio(stocks):
+    print("\n📈 Your Stock Portfolio:")
+    print(f"{'Stock':<10}{'Shares':<10}{'Price':<10}{'Investment':<15}")
+    print("-" * 45)
+
+    total = 0
+    for stock in stocks:
+        inv = stock.investment()
+        total += inv
+        print(f"{stock.name:<10}{stock.shares:<10}{stock.price:<10.2f}{inv:<15.2f}")
+    print("-" * 45)
+    print(f"{'Total Investment':<30}₹{total:.2f}\n")
+
+def main():
+    stocks = []
+
+    print("📊 Welcome to the Stock Portfolio Tracker")
+    while True:
+        name = input("Enter stock name (or 'done' to finish): ").strip()
+        if name.lower() == 'done':
+            break
+
+        try:
+            shares = int(input("Enter number of shares: "))
+            price = float(input("Enter purchase price: ₹"))
+            stock = Stock(name, shares, price)
+            stocks.append(stock)
+        except ValueError:
+            print("⚠️ Please enter valid numbers.")
+
+    if stocks:
+        display_portfolio(stocks)
+    else:
+        print("No stocks added.")
+
+if __name__ == "__main__":
+    main()
